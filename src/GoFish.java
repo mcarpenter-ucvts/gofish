@@ -11,8 +11,7 @@ public class GoFish {
     private final Player computer;
     private List<Card> deck;
     private final Scanner in;
-    private static boolean[] requestedThisTurn = {false, false, false, false, false, false, false, false, false, false, false, false, false};
-    private String choice = null;
+    private static final boolean[] requestedThisTurn = {false, false, false, false, false, false, false, false, false, false, false, false, false};
 
     public GoFish() {
         this.whoseTurn = 'P';
@@ -23,13 +22,14 @@ public class GoFish {
     }
 
     public void askType() {
+        String choice;
         do {
             System.out.println("Play against another player or computer?(Type P or C)");
             choice = in.nextLine().toUpperCase();
-        } while (choice.equals("P") == false && choice.equals("C")== false);
+        } while (!choice.equals("P") && !choice.equals("C"));
         if (choice.equals("C")) {
             play();
-        } else if (choice.equals("P")){
+        } else {
             multiplay();
         }
     }
@@ -169,9 +169,7 @@ public class GoFish {
     }
 
     public void resetCurrentTurnRequests(){
-        for(int i = 0; i < requestedThisTurn.length; i++){
-            requestedThisTurn[i] = true;
-        }
+        Arrays.fill(requestedThisTurn, true);
     }
 
     public static boolean[] getRequestedThisTurn(){

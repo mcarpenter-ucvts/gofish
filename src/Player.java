@@ -6,7 +6,7 @@ public class Player {
 
     private final List<Card> hand;
     private final List<String> books;
-    private static int[] recReq = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //Number of turns until the CPU can request a given rank again
+    private static final int[] recReq = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //Number of turns until the CPU can request a given rank again
 
     public Player() {
         this.hand = new ArrayList<>();
@@ -68,8 +68,8 @@ public class Player {
 
     public Card getCardByNeed() {
         int i1 = 0;
-        for (int i = 0; i < recReq.length; i++){
-            if(recReq[i] != 0){
+        for (int value : recReq) {
+            if (value != 0) {
                 i1++;
             }
         }
@@ -106,9 +106,9 @@ public class Player {
                         otherHand.add(hand.get(i));
                     }
                 }
+                int idx = 0;
+                int freq = 1;
                 if(otherHand.size() == 0){
-                    int idx = 0;
-                    int freq = 1;
                     for (int k = 0; k < hand.size() - 1; k++) {
                         int c = 1;
                         for (int j = k + 1; j < hand.size(); j++) {
@@ -124,8 +124,6 @@ public class Player {
                     recReq[Card.getOrderedRank(hand.get(idx).getRank()) - 2] = 3;
                     return hand.get(idx);
                 }else{
-                    int idx = 0;
-                    int freq = 1;
                     for (int k = 0; k < otherHand.size() - 1; k++) {
                         int c = 1;
                         for (int j = k + 1; j < otherHand.size(); j++) {
